@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { useFadeIn } from '@/hooks/useAnimation';
+import { useFadeIn, useHoverAnimation } from '@/hooks/useAnimation';
 
 const contactMethods = [
   {
@@ -200,6 +200,80 @@ export const ContactInfo: React.FC = () => {
               <p className="text-sm text-muted-foreground">
                 Currently accepting new projects
               </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Response Time */}
+      <Card variant="elevated" padding="lg">
+        <CardHeader>
+          <CardTitle>Response Time</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="flex items-start space-x-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="mt-0.5 flex-shrink-0 text-primary"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              <div>
+                <p className="text-sm font-medium text-foreground">General Inquiries</p>
+                <p className="text-xs text-muted-foreground">24-48 hours</p>
+              </div>
+            </div>
+            <div className="flex items-start space-x-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="mt-0.5 flex-shrink-0 text-primary"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              <div>
+                <p className="text-sm font-medium text-foreground">Project Proposals</p>
+                <p className="text-xs text-muted-foreground">1-3 business days</p>
+              </div>
+            </div>
+            <div className="flex items-start space-x-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="mt-0.5 flex-shrink-0 text-primary"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              <div>
+                <p className="text-sm font-medium text-foreground">Urgent Matters</p>
+                <p className="text-xs text-muted-foreground">Within 12 hours</p>
+              </div>
             </div>
           </div>
         </CardContent>
