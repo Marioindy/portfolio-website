@@ -4,13 +4,17 @@ import React from 'react';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useFadeIn } from '@/hooks/useAnimation';
+import { WaveAnimation } from './WaveAnimation';
 
 export const BioSection: React.FC = () => {
   const bioRef = useFadeIn({ delay: 0.2 });
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-5xl">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Wave Animation Background */}
+      <WaveAnimation />
+
+      <div className="mx-auto max-w-5xl relative z-10">
         <Card ref={bioRef} variant="elevated" padding="lg">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {/* Profile Image */}
