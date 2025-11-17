@@ -26,7 +26,7 @@ interface FormErrors {
 
 export const ContactForm: React.FC = () => {
   const submitContactForm = useMutation(api.contact.submitContactForm);
-  const formRef = useFadeIn({ delay: 0.2 });
+  const formRef = useFadeIn<HTMLDivElement>({ delay: 0.2 });
   const successRef = useRef<HTMLDivElement>(null);
   const errorRef = useRef<HTMLDivElement>(null);
 
@@ -237,7 +237,7 @@ export const ContactForm: React.FC = () => {
             type="submit"
             size="lg"
             className="w-full"
-            isLoading={isSubmitting}
+            
             disabled={isSubmitting}
           >
             {isSubmitting ? 'Sending...' : 'Send Message'}

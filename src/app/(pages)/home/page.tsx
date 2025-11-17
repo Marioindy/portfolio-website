@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   },
 };
 
+// Force dynamic rendering for this page since it uses Convex queries
+export const dynamic = 'force-dynamic';
+
 export default function HomePage() {
   return (
     <div className="min-h-screen">

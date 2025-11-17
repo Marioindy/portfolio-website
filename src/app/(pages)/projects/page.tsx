@@ -6,6 +6,9 @@ export const metadata = {
   description: 'View all my projects and work samples',
 };
 
+// Force dynamic rendering for this page since it uses Convex queries
+export const dynamic = 'force-dynamic';
+
 export default function ProjectsPage() {
   return (
     <div>

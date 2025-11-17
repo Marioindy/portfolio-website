@@ -8,6 +8,9 @@ export const metadata = {
   description: 'Learn more about me, my skills, and my experience',
 };
 
+// Force dynamic rendering for this page since it uses Convex queries
+export const dynamic = 'force-dynamic';
+
 export default function AboutPage() {
   return (
     <div className="min-h-screen">

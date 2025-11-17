@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
+import { Card, CardContent } from '@/components/ui/Card';
 import { useFadeInStagger } from '@/hooks/useAnimation';
 
 interface TechItem {
@@ -106,7 +106,7 @@ const categoryColors = {
 };
 
 export const TechStack: React.FC = () => {
-  const gridRef = useFadeInStagger({ stagger: 0.08 });
+  const gridRef = useFadeInStagger<HTMLDivElement>({ stagger: 0.08 });
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">

@@ -97,9 +97,9 @@ export const scrollFadeIn = (
       trigger: trigger || element,
       start: 'top 80%',
       toggleActions: 'play none none reverse',
-    },
+    } as any,
     ...tweenOptions,
-  });
+  } as any);
 };
 
 // Parallax effect
@@ -108,7 +108,7 @@ export const parallax = (
   speed: number = 0.5
 ): ScrollTrigger => {
   return ScrollTrigger.create({
-    trigger: element,
+    trigger: element as any,
     start: 'top bottom',
     end: 'bottom top',
     scrub: true,
@@ -122,7 +122,7 @@ export const parallax = (
 };
 
 // Magnetic hover effect
-export const magneticHover = (element: HTMLElement, strength: number = 0.5): void => {
+export const magneticHover = (element: HTMLElement, strength: number = 0.5): (() => void) => {
   const handleMouseMove = (e: MouseEvent): void => {
     const rect = element.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;

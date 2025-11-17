@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useQuery } from 'convex/react';
 import { api } from '@/../convex/_generated/api';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { formatDate } from '@/utils/convex-helpers';
@@ -13,7 +13,6 @@ import { MarkdownRenderer } from '@/components/shared/MarkdownRenderer';
 
 const BlogPostPage: React.FC = () => {
   const params = useParams();
-  const router = useRouter();
   const { navigate } = usePageTransition();
   const slug = params?.slug as string;
 
@@ -89,8 +88,8 @@ const BlogPostPage: React.FC = () => {
 
           {/* Tags */}
           <div className="mb-4 flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
-              <Badge key={tag} variant="primary">
+            {post.tags.map((tag: string) => (
+              <Badge key={tag} variant="default">
                 {tag}
               </Badge>
             ))}
@@ -167,7 +166,7 @@ const BlogPostPage: React.FC = () => {
                   onClick={() => navigate(`/blog/${relatedPost.slug}`)}
                 >
                   <div className="mb-3 flex flex-wrap gap-2">
-                    {relatedPost.tags.slice(0, 2).map((tag) => (
+                    {relatedPost.tags.slice(0, 2).map((tag: string) => (
                       <Badge key={tag} variant="secondary" size="sm">
                         {tag}
                       </Badge>

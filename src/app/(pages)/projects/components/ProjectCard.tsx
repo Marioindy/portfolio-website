@@ -31,7 +31,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         )}
         {project.featured && (
           <div className="absolute right-4 top-4">
-            <Badge variant="primary">Featured</Badge>
+            <Badge variant="default">Featured</Badge>
           </div>
         )}
       </div>
@@ -57,7 +57,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         <div className="flex w-full gap-2">
           {project.liveUrl && (
             <Button
-              variant="primary"
+              variant="default"
               size="sm"
               className="flex-1"
               onClick={() => window.open(project.liveUrl, '_blank')}

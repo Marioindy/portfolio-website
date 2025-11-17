@@ -1,6 +1,5 @@
 import { mutation, query, action } from './_generated/server';
 import { v } from 'convex/values';
-import { api } from './_generated/api';
 
 /**
  * Submit a contact form
@@ -69,7 +68,7 @@ export const sendEmailNotification = action({
     subject: v.string(),
     message: v.string(),
   },
-  handler: async (ctx, args) => {
+  handler: async (_ctx, args) => {
     // TODO: Integrate with your email service provider
     // Example implementations:
 
@@ -112,39 +111,5 @@ export const sendEmailNotification = action({
   },
 });
 
-/**
- * Submit contact form with email notification
- * This action submits the form and sends an email notification
- */
-export const submitContactFormWithNotification = action({
-  args: {
-    name: v.string(),
-    email: v.string(),
-    subject: v.string(),
-    message: v.string(),
-  },
-  handler: async (ctx, args) => {
-    // First, store the submission in the database
-    const submissionId = await ctx.runMutation(api.contact.submitContactForm, {
-      name: args.name,
-      email: args.email,
-      subject: args.subject,
-      message: args.message,
-    });
-
-    // Then, send email notification
-    try {
-      await ctx.runAction(api.contact.sendEmailNotification, {
-        name: args.name,
-        email: args.email,
-        subject: args.subject,
-        message: args.message,
-      });
-    } catch (error) {
-      console.error('Failed to send email notification:', error);
-      // Don't fail the submission if email fails
-    }
-
-    return submissionId;
-  },
-});
+// Composite action removed due to circular dependency issues
+// Use submitContactForm mutation and sendEmailNotification action separately instead

@@ -3,12 +3,12 @@
  * Provides type-safe helpers for working with Convex data
  */
 
-import { Id } from 'convex/_generated/dataModel';
+import { Id, TableNames } from 'convex/_generated/dataModel';
 
 /**
  * Type guard to check if a value is a valid Convex ID
  */
-export function isValidId<TableName extends string>(
+export function isValidId<TableName extends TableNames>(
   value: unknown
 ): value is Id<TableName> {
   return typeof value === 'string' && value.length > 0;

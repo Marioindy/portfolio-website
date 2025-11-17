@@ -17,13 +17,7 @@ export function usePageTransition() {
         'startViewTransition' in document &&
         typeof (document as Document & { startViewTransition: (callback: () => void) => void }).startViewTransition === 'function'
       ) {
-        const transition = (document as Document & { startViewTransition: (callback: () => void) => void }).startViewTransition(() => {
-          router.push(href);
-        });
-
-        // Handle transition errors
-        transition.catch?.((error: Error) => {
-          console.error('View transition failed:', error);
+        (document as Document & { startViewTransition: (callback: () => void) => void }).startViewTransition(() => {
           router.push(href);
         });
       } else {
