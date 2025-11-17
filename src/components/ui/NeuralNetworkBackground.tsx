@@ -21,10 +21,31 @@ export function NeuralNetworkBackground() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size
+    // Set canvas size and scale nodes on resize
+    let currentWidth = window.innerWidth;
+    let currentHeight = window.innerHeight;
+
     const setCanvasSize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const newWidth = window.innerWidth;
+      const newHeight = window.innerHeight;
+
+      // Calculate scale factors
+      const scaleX = newWidth / currentWidth;
+      const scaleY = newHeight / currentHeight;
+
+      // Scale node positions proportionally
+      nodes.forEach((node) => {
+        node.x *= scaleX;
+        node.y *= scaleY;
+      });
+
+      // Update canvas dimensions
+      canvas.width = newWidth;
+      canvas.height = newHeight;
+
+      // Store new dimensions
+      currentWidth = newWidth;
+      currentHeight = newHeight;
     };
     setCanvasSize();
     window.addEventListener('resize', setCanvasSize);

@@ -13,7 +13,7 @@ export default defineSchema({
     liveUrl: v.optional(v.string()),
     featured: v.boolean(),
     order: v.number(),
-    createdAt: v.number(),
+    createdAt: v.optional(v.number()),
   })
     .index('by_featured', ['featured'])
     .index('by_category', ['category'])

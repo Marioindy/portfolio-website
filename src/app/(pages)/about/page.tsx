@@ -8,7 +8,7 @@ export const metadata = {
   description: 'Learn more about me, my skills, and my experience',
 };
 
-// Force dynamic rendering for this page since it uses Convex queries
+// Force dynamic rendering since child components use Convex hooks
 export const dynamic = 'force-dynamic';
 
 export default function AboutPage() {

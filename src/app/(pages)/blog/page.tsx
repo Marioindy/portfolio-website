@@ -6,7 +6,7 @@ export const metadata = {
   description: 'Read my latest articles on web development, design, and technology',
 };
 
-// Force dynamic rendering for this page since it uses Convex queries
+// Force dynamic rendering since child components use Convex hooks
 export const dynamic = 'force-dynamic';
 
 export default function BlogPage() {
