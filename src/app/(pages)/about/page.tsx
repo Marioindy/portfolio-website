@@ -1,6 +1,7 @@
 import React from 'react';
 import { BioSection } from './components/BioSection';
-import { SkillsGrid } from './components/SkillsGrid';
+import { SkillsGridWithConvex } from './components/SkillsGridWithConvex';
+import { TechStack } from './components/TechStack';
 
 export const metadata = {
   title: 'About | Portfolio',
@@ -9,9 +10,16 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div>
+    <div className="min-h-screen">
       <BioSection />
-      <SkillsGrid />
+      <SkillsGridWithConvex />
+      <TechStack />
     </div>
   );
 }
+
+/**
+ * Note: To use the static SkillsGrid instead of the Convex-powered version,
+ * replace <SkillsGridWithConvex /> with <SkillsGrid /> and import:
+ * import { SkillsGrid } from './components/SkillsGrid';
+ */
