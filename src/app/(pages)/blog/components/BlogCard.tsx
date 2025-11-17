@@ -6,16 +6,24 @@ import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { BlogPost } from '@/types';
 import { formatDate } from '@/utils/convex-helpers';
+import { usePageTransition } from '@/hooks/usePageTransition';
 
 interface BlogCardProps {
   post: BlogPost;
 }
 
 export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
+  const { navigate } = usePageTransition();
+
+  const handleClick = () => {
+    navigate(`/blog/${post.slug}`);
+  };
+
   return (
     <Card
       variant="elevated"
-      className="group h-full overflow-hidden transition-all hover:scale-105"
+      className="group h-full cursor-pointer overflow-hidden transition-all hover:scale-105"
+      onClick={handleClick}
     >
       {/* Cover Image */}
       {post.coverImageUrl ? (
@@ -71,7 +79,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
                 className="h-8 w-8 rounded-full"
               />
             ) : (
-              <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-sm">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/20 text-sm">
                 {post.author.name.charAt(0)}
               </div>
             )}
@@ -79,7 +87,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
               {post.author.name}
             </span>
           </div>
-          <Button variant="ghost" size="sm">
+          <Button variant="ghost" size="sm" onClick={handleClick}>
             Read More →
           </Button>
         </div>

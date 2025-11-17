@@ -1,145 +1,54 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useQuery } from 'convex/react';
+import { api } from '@/../convex/_generated/api';
 import { BlogCard } from './BlogCard';
 import { Input } from '@/components/ui/Input';
 import { Badge } from '@/components/ui/Badge';
+import { Button } from '@/components/ui/Button';
 import { useFadeInStagger } from '@/hooks/useAnimation';
-import { BlogPost } from '@/types';
 import { cn } from '@/utils/cn';
 
-// Mock data - will be replaced with Convex data
-const mockBlogPosts: BlogPost[] = [
-  {
-    _id: '1',
-    _creationTime: Date.now() - 86400000 * 5,
-    title: 'Building Scalable Web Applications with Next.js 15',
-    slug: 'building-scalable-web-apps-nextjs-15',
-    excerpt:
-      'Learn how to leverage Next.js 15 features to build high-performance, scalable web applications.',
-    content: 'Full blog post content...',
-    tags: ['Next.js', 'React', 'Web Development'],
-    published: true,
-    publishedAt: Date.now() - 86400000 * 5,
-    readTime: 8,
-    author: {
-      name: 'John Doe',
-    },
-  },
-  {
-    _id: '2',
-    _creationTime: Date.now() - 86400000 * 10,
-    title: 'Mastering TypeScript: Advanced Patterns and Best Practices',
-    slug: 'mastering-typescript-patterns',
-    excerpt:
-      'Dive deep into advanced TypeScript patterns that will level up your development skills.',
-    content: 'Full blog post content...',
-    tags: ['TypeScript', 'JavaScript', 'Programming'],
-    published: true,
-    publishedAt: Date.now() - 86400000 * 10,
-    readTime: 12,
-    author: {
-      name: 'John Doe',
-    },
-  },
-  {
-    _id: '3',
-    _creationTime: Date.now() - 86400000 * 15,
-    title: 'GSAP Animation Cookbook: Creating Stunning Web Animations',
-    slug: 'gsap-animation-cookbook',
-    excerpt:
-      'A comprehensive guide to creating beautiful, performant animations with GSAP.',
-    content: 'Full blog post content...',
-    tags: ['GSAP', 'Animation', 'Frontend'],
-    published: true,
-    publishedAt: Date.now() - 86400000 * 15,
-    readTime: 10,
-    author: {
-      name: 'John Doe',
-    },
-  },
-  {
-    _id: '4',
-    _creationTime: Date.now() - 86400000 * 20,
-    title: 'Real-time Applications with Convex: A Complete Guide',
-    slug: 'realtime-apps-convex-guide',
-    excerpt:
-      'Explore how Convex simplifies building real-time applications with its reactive architecture.',
-    content: 'Full blog post content...',
-    tags: ['Convex', 'Real-time', 'Backend'],
-    published: true,
-    publishedAt: Date.now() - 86400000 * 20,
-    readTime: 15,
-    author: {
-      name: 'John Doe',
-    },
-  },
-  {
-    _id: '5',
-    _creationTime: Date.now() - 86400000 * 25,
-    title: 'CSS Grid and Flexbox: Modern Layout Techniques',
-    slug: 'css-grid-flexbox-layouts',
-    excerpt:
-      'Master modern CSS layout techniques to create responsive, flexible designs.',
-    content: 'Full blog post content...',
-    tags: ['CSS', 'Layout', 'Frontend'],
-    published: true,
-    publishedAt: Date.now() - 86400000 * 25,
-    readTime: 6,
-    author: {
-      name: 'John Doe',
-    },
-  },
-  {
-    _id: '6',
-    _creationTime: Date.now() - 86400000 * 30,
-    title: 'Optimizing React Performance: Tips and Tricks',
-    slug: 'optimizing-react-performance',
-    excerpt:
-      'Practical tips for optimizing React applications and improving user experience.',
-    content: 'Full blog post content...',
-    tags: ['React', 'Performance', 'Optimization'],
-    published: true,
-    publishedAt: Date.now() - 86400000 * 30,
-    readTime: 9,
-    author: {
-      name: 'John Doe',
-    },
-  },
-];
+const POSTS_PER_PAGE = 9;
 
 export const BlogGrid: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [currentCursor, setCurrentCursor] = useState<string | null>(null);
   const gridRef = useFadeInStagger({ stagger: 0.1 });
 
-  // Extract all unique tags
-  const allTags = useMemo(() => {
-    const tags = new Set<string>();
-    mockBlogPosts.forEach((post) => {
-      post.tags.forEach((tag) => tags.add(tag));
-    });
-    return Array.from(tags);
-  }, []);
+  // Fetch all tags
+  const allTags = useQuery(api.blog.getAllTags);
 
-  // Filter posts based on search and tag
-  const filteredPosts = useMemo(() => {
-    return mockBlogPosts.filter((post) => {
-      const matchesSearch =
-        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.tags.some((tag) =>
-          tag.toLowerCase().includes(searchQuery.toLowerCase())
-        );
+  // Fetch paginated posts with filters
+  const result = useQuery(api.blog.getPaginatedPosts, {
+    paginationOpts: {
+      numItems: POSTS_PER_PAGE,
+      cursor: currentCursor,
+    },
+    searchQuery: searchQuery || undefined,
+    tag: selectedTag || undefined,
+  });
 
-      const matchesTag = !selectedTag || post.tags.includes(selectedTag);
-
-      return matchesSearch && matchesTag;
-    });
+  // Reset pagination when search or tag changes
+  useEffect(() => {
+    setCurrentCursor(null);
   }, [searchQuery, selectedTag]);
 
+  const handleLoadMore = () => {
+    if (result?.continueCursor) {
+      setCurrentCursor(result.continueCursor);
+    }
+  };
+
+  const handleTagClick = (tag: string | null) => {
+    setSelectedTag(tag);
+    setCurrentCursor(null);
+  };
+
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8">
+    <section className="px-4 py-20 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 text-center">
           <h1 className="mb-4 text-5xl font-bold text-foreground">Blog</h1>
@@ -158,49 +67,77 @@ export const BlogGrid: React.FC = () => {
         </div>
 
         {/* Tags Filter */}
-        <div className="mb-8 flex flex-wrap justify-center gap-2">
-          <Badge
-            variant={selectedTag === null ? 'primary' : 'secondary'}
-            className={cn(
-              'cursor-pointer transition-all hover:scale-105',
-              selectedTag === null && 'ring-2 ring-primary ring-offset-2'
-            )}
-            onClick={() => setSelectedTag(null)}
-          >
-            All Posts
-          </Badge>
-          {allTags.map((tag) => (
+        {allTags && allTags.length > 0 && (
+          <div className="mb-8 flex flex-wrap justify-center gap-2">
             <Badge
-              key={tag}
-              variant={selectedTag === tag ? 'primary' : 'secondary'}
+              variant={selectedTag === null ? 'primary' : 'secondary'}
               className={cn(
                 'cursor-pointer transition-all hover:scale-105',
-                selectedTag === tag && 'ring-2 ring-primary ring-offset-2'
+                selectedTag === null && 'ring-2 ring-primary ring-offset-2'
               )}
-              onClick={() => setSelectedTag(tag)}
+              onClick={() => handleTagClick(null)}
             >
-              {tag}
+              All Posts
             </Badge>
-          ))}
-        </div>
-
-        {/* Blog Grid */}
-        {filteredPosts.length > 0 ? (
-          <div
-            ref={gridRef}
-            className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
-          >
-            {filteredPosts.map((post) => (
-              <BlogCard key={post._id} post={post} />
+            {allTags.map((tag) => (
+              <Badge
+                key={tag}
+                variant={selectedTag === tag ? 'primary' : 'secondary'}
+                className={cn(
+                  'cursor-pointer transition-all hover:scale-105',
+                  selectedTag === tag && 'ring-2 ring-primary ring-offset-2'
+                )}
+                onClick={() => handleTagClick(tag)}
+              >
+                {tag}
+              </Badge>
             ))}
           </div>
-        ) : (
+        )}
+
+        {/* Loading State */}
+        {result === undefined && (
+          <div className="flex justify-center py-20">
+            <div className="text-center">
+              <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent"></div>
+              <p className="text-muted-foreground">Loading posts...</p>
+            </div>
+          </div>
+        )}
+
+        {/* Blog Grid */}
+        {result && result.posts.length > 0 ? (
+          <>
+            <div
+              ref={gridRef}
+              className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+            >
+              {result.posts.map((post) => (
+                <BlogCard key={post._id} post={post} />
+              ))}
+            </div>
+
+            {/* Results Info */}
+            <div className="mt-8 text-center text-sm text-muted-foreground">
+              Showing {result.posts.length} of {result.totalCount} posts
+            </div>
+
+            {/* Load More Button */}
+            {!result.isDone && (
+              <div className="mt-8 flex justify-center">
+                <Button onClick={handleLoadMore} variant="primary" size="lg">
+                  Load More Posts
+                </Button>
+              </div>
+            )}
+          </>
+        ) : result && result.posts.length === 0 ? (
           <div className="py-20 text-center">
             <p className="text-lg text-muted-foreground">
               No posts found matching your criteria.
             </p>
           </div>
-        )}
+        ) : null}
       </div>
     </section>
   );
