@@ -83,7 +83,7 @@ const mockProjects: Project[] = [
 
 export const ProjectGrid: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('All');
-  const gridRef = useFadeInStagger({ stagger: 0.1 });
+  const gridRef = useFadeInStagger<HTMLDivElement>({ stagger: 0.1 });
 
   // Extract unique categories
   const categories = useMemo(() => {

@@ -56,7 +56,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
 
       <CardContent>
         <div className="flex flex-wrap gap-2">
-          {post.tags.slice(0, 3).map((tag) => (
+          {post.tags.slice(0, 3).map((tag: string) => (
             <Badge key={tag} variant="secondary" size="sm">
               {tag}
             </Badge>

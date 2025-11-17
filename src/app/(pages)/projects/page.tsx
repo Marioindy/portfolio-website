@@ -6,6 +6,9 @@ export const metadata = {
   description: 'View all my projects and work samples',
 };
 
+// Force dynamic rendering since child components use Convex hooks
+export const dynamic = 'force-dynamic';
+
 export default function ProjectsPage() {
   return (
     <div>

@@ -16,7 +16,7 @@ export const BlogGrid: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [currentCursor, setCurrentCursor] = useState<string | null>(null);
-  const gridRef = useFadeInStagger({ stagger: 0.1 });
+  const gridRef = useFadeInStagger<HTMLDivElement>({ stagger: 0.1 });
 
   // Fetch all tags
   const allTags = useQuery(api.blog.getAllTags);
@@ -79,7 +79,7 @@ export const BlogGrid: React.FC = () => {
             >
               All Posts
             </Badge>
-            {allTags.map((tag) => (
+            {allTags.map((tag: string) => (
               <Badge
                 key={tag}
                 variant={selectedTag === tag ? 'primary' : 'secondary'}
@@ -125,7 +125,7 @@ export const BlogGrid: React.FC = () => {
             {/* Load More Button */}
             {!result.isDone && (
               <div className="mt-8 flex justify-center">
-                <Button onClick={handleLoadMore} variant="primary" size="lg">
+                <Button onClick={handleLoadMore} variant="default" size="lg">
                   Load More Posts
                 </Button>
               </div>

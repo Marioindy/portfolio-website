@@ -23,7 +23,7 @@ const categoryIcons: Record<string, string> = {
 };
 
 export const SkillsGridWithConvex: React.FC = () => {
-  const gridRef = useFadeInStagger({ stagger: 0.15 });
+  const gridRef = useFadeInStagger<HTMLDivElement>({ stagger: 0.15 });
   const skillsGrouped = useQuery(api.skills.getAllSkillsGrouped);
 
   // Show loading state

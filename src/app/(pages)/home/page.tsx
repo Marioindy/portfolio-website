@@ -1,15 +1,24 @@
-import React from 'react';
+import type { Metadata } from 'next';
 import { HeroSection } from './components/HeroSection';
 import { FeaturedProjects } from './components/FeaturedProjects';
 
-export const metadata = {
-  title: 'Home | Portfolio',
-  description: 'Welcome to my portfolio website showcasing my work and expertise',
+export const metadata: Metadata = {
+  title: 'Home | Full Stack Developer Portfolio',
+  description:
+    'Welcome to my portfolio showcasing modern web development projects, cutting-edge technologies, and innovative solutions.',
+  openGraph: {
+    title: 'Home | Full Stack Developer Portfolio',
+    description:
+      'Welcome to my portfolio showcasing modern web development projects, cutting-edge technologies, and innovative solutions.',
+  },
 };
+
+// Force dynamic rendering since child components use Convex hooks
+export const dynamic = 'force-dynamic';
 
 export default function HomePage() {
   return (
-    <div>
+    <div className="min-h-screen">
       <HeroSection />
       <FeaturedProjects />
     </div>

@@ -1,106 +1,178 @@
 'use client';
 
-import React from 'react';
+import { useEffect, useRef } from 'react';
+import { ProjectCard } from '@/components/ProjectCard';
 import Link from 'next/link';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
-import { usePageTransition } from '@/hooks/usePageTransition';
-import { useFadeInStagger } from '@/hooks/useAnimation';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// Mock data - will be replaced with Convex data
-const featuredProjects = [
-  {
-    _id: '1',
-    title: 'E-Commerce Platform',
-    description: 'A full-featured e-commerce platform with cart, checkout, and admin dashboard.',
-    tags: ['Next.js', 'TypeScript', 'Stripe', 'Prisma'],
-    imageUrl: 'https://via.placeholder.com/400x300',
-    liveUrl: 'https://example.com',
-  },
-  {
-    _id: '2',
-    title: 'Social Media Dashboard',
-    description: 'Real-time analytics dashboard for social media management with data visualization.',
-    tags: ['React', 'D3.js', 'Node.js', 'MongoDB'],
-    imageUrl: 'https://via.placeholder.com/400x300',
-    liveUrl: 'https://example.com',
-  },
-  {
-    _id: '3',
-    title: 'AI Chat Application',
-    description: 'Intelligent chatbot application with natural language processing capabilities.',
-    tags: ['Python', 'FastAPI', 'OpenAI', 'React'],
-    imageUrl: 'https://via.placeholder.com/400x300',
-    liveUrl: 'https://example.com',
-  },
-];
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
-export const FeaturedProjects: React.FC = () => {
-  const { navigate } = usePageTransition();
-  const projectsRef = useFadeInStagger({ stagger: 0.2 });
+// Placeholder component when Convex is not configured
+export function FeaturedProjects() {
+  // For now, show placeholder until Convex is configured
+  const projects: any[] = [];
+  const sectionRef = useRef<HTMLElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!projects || projects.length === 0) return;
+
+    const ctx = gsap.context(() => {
+      // Animate title
+      gsap.fromTo(
+        titleRef.current,
+        {
+          y: 50,
+          opacity: 0,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: 'top 80%',
+            end: 'top 50%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+
+      // Animate project cards
+      const cards = cardsRef.current?.children;
+      if (cards) {
+        gsap.fromTo(
+          Array.from(cards),
+          {
+            y: 80,
+            opacity: 0,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: cardsRef.current,
+              start: 'top 80%',
+              end: 'top 50%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [projects]);
+
+  // Show loading state
+  if (projects === undefined) {
+    return (
+      <section ref={sectionRef} className="py-24 bg-secondary/20">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
+            Featured Projects
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3].map((i) => (
+              <div
+                key={i}
+                className="h-96 bg-card border border-border rounded-lg animate-pulse"
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Show empty state
+  if (projects.length === 0) {
+    return (
+      <section ref={sectionRef} className="py-24 bg-secondary/20">
+        <div className="container mx-auto px-4">
+          <h2 ref={titleRef} className="text-4xl md:text-5xl font-bold text-center mb-16">
+            Featured Projects
+          </h2>
+          <div className="text-center">
+            <p className="text-muted-foreground mb-8">
+              No featured projects yet. Check back soon!
+            </p>
+            <Link
+              href="/projects"
+              className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:shadow-lg transition-shadow"
+            >
+              View All Projects
+            </Link>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="mb-12 text-center">
-          <h2 className="mb-4 text-4xl font-bold text-foreground">Featured Projects</h2>
-          <p className="text-lg text-muted-foreground">
-            Check out some of my recent work
-          </p>
-        </div>
+    <section ref={sectionRef} className="py-24 bg-secondary/20">
+      <div className="container mx-auto px-4">
+        <h2
+          ref={titleRef}
+          className="text-4xl md:text-5xl font-bold text-center mb-4"
+        >
+          Featured Projects
+        </h2>
+        <p className="text-center text-muted-foreground mb-16 max-w-2xl mx-auto">
+          A selection of my recent work showcasing various technologies and
+          design approaches.
+        </p>
 
         <div
-          ref={projectsRef}
-          className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+          ref={cardsRef}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12"
         >
-          {featuredProjects.map((project) => (
-            <Card
+          {projects.map((project) => (
+            <ProjectCard
               key={project._id}
-              variant="elevated"
-              className="group overflow-hidden transition-all hover:scale-105"
-            >
-              <div className="relative h-48 overflow-hidden bg-gradient-to-br from-primary/20 to-secondary/20">
-                <div className="absolute inset-0 flex items-center justify-center text-6xl opacity-20">
-                  💻
-                </div>
-              </div>
-
-              <CardHeader>
-                <CardTitle className="group-hover:text-primary transition-colors">
-                  {project.title}
-                </CardTitle>
-                <CardDescription>{project.description}</CardDescription>
-              </CardHeader>
-
-              <CardContent>
-                <div className="mb-4 flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary" size="sm">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="w-full"
-                  onClick={() => navigate(`/projects`)}
-                >
-                  View Details
-                </Button>
-              </CardContent>
-            </Card>
+              id={project._id}
+              title={project.title}
+              description={project.description}
+              imageUrl={project.imageUrl}
+              tags={project.tags}
+              githubUrl={project.githubUrl}
+              liveUrl={project.liveUrl}
+              featured={project.featured}
+            />
           ))}
         </div>
 
-        <div className="mt-12 text-center">
-          <Button size="lg" onClick={() => navigate('/projects')}>
+        <div className="text-center">
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-semibold group"
+          >
             View All Projects
-          </Button>
+            <svg
+              className="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </Link>
         </div>
       </div>
     </section>
   );
-};
+}

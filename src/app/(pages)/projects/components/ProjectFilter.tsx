@@ -18,7 +18,7 @@ export const ProjectFilter: React.FC<ProjectFilterProps> = ({
   return (
     <div className="flex flex-wrap items-center justify-center gap-3">
       <Button
-        variant={activeCategory === 'All' ? 'primary' : 'ghost'}
+        variant={activeCategory === 'All' ? 'default' : 'ghost'}
         size="sm"
         onClick={() => onCategoryChange('All')}
         className={cn(
@@ -31,7 +31,7 @@ export const ProjectFilter: React.FC<ProjectFilterProps> = ({
       {categories.map((category) => (
         <Button
           key={category}
-          variant={activeCategory === category ? 'primary' : 'ghost'}
+          variant={activeCategory === category ? 'default' : 'ghost'}
           size="sm"
           onClick={() => onCategoryChange(category)}
           className={cn(

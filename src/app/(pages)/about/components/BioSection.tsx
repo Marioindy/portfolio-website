@@ -7,7 +7,7 @@ import { useFadeIn } from '@/hooks/useAnimation';
 import { WaveAnimation } from './WaveAnimation';
 
 export const BioSection: React.FC = () => {
-  const bioRef = useFadeIn({ delay: 0.2 });
+  const bioRef = useFadeIn<HTMLDivElement>({ delay: 0.2 });
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">

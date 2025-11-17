@@ -57,7 +57,7 @@ const skillCategories = [
 ];
 
 export const SkillsGrid: React.FC = () => {
-  const gridRef = useFadeInStagger({ stagger: 0.15 });
+  const gridRef = useFadeInStagger<HTMLDivElement>({ stagger: 0.15 });
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-secondary/20">

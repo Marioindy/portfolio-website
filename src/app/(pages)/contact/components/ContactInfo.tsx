@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { useFadeIn, useHoverAnimation } from '@/hooks/useAnimation';
+import { useFadeIn } from '@/hooks/useAnimation';
 
 const contactMethods = [
   {
@@ -132,7 +132,7 @@ const socialLinks = [
 ];
 
 export const ContactInfo: React.FC = () => {
-  const infoRef = useFadeIn({ delay: 0.3 });
+  const infoRef = useFadeIn<HTMLDivElement>({ delay: 0.3 });
 
   return (
     <div ref={infoRef} className="space-y-6">

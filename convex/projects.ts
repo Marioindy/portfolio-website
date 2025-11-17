@@ -11,15 +11,17 @@ export const getProjects = query({
 });
 
 /**
- * Get featured projects
+ * Get featured projects (top 3 for home page)
  */
 export const getFeaturedProjects = query({
   handler: async (ctx) => {
-    return await ctx.db
+    const projects = await ctx.db
       .query('projects')
       .withIndex('by_featured', (q) => q.eq('featured', true))
       .order('desc')
-      .collect();
+      .take(3);
+
+    return projects;
   },
 });
 
@@ -62,6 +64,7 @@ export const createProject = mutation({
     liveUrl: v.optional(v.string()),
     featured: v.boolean(),
     order: v.number(),
+    createdAt: v.number(),
   },
   handler: async (ctx, args) => {
     return await ctx.db.insert('projects', args);

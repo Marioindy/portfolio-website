@@ -29,7 +29,7 @@ export const getPaginatedPosts = query({
         (post) =>
           post.title.toLowerCase().includes(searchLower) ||
           post.excerpt.toLowerCase().includes(searchLower) ||
-          post.tags.some((tag) => tag.toLowerCase().includes(searchLower))
+          post.tags.some((tag: string) => tag.toLowerCase().includes(searchLower))
       );
     }
 
@@ -182,7 +182,7 @@ export const getRelatedPosts = query({
       .filter((post) => post._id !== args.postId)
       .map((post) => {
         // Calculate how many tags match
-        const matchingTags = post.tags.filter((tag) =>
+        const matchingTags = post.tags.filter((tag: string) =>
           currentPost.tags.includes(tag)
         );
         return {
@@ -210,7 +210,7 @@ export const getAllTags = query({
 
     const tagsSet = new Set<string>();
     posts.forEach((post) => {
-      post.tags.forEach((tag) => tagsSet.add(tag));
+      post.tags.forEach((tag: string) => tagsSet.add(tag));
     });
 
     return Array.from(tagsSet).sort();

@@ -8,15 +8,17 @@ export default defineSchema({
     longDescription: v.optional(v.string()),
     imageUrl: v.optional(v.string()),
     tags: v.array(v.string()),
-    category: v.string(),
+    category: v.optional(v.string()),
     githubUrl: v.optional(v.string()),
     liveUrl: v.optional(v.string()),
     featured: v.boolean(),
     order: v.number(),
+    createdAt: v.optional(v.number()),
   })
     .index('by_featured', ['featured'])
     .index('by_category', ['category'])
-    .index('by_order', ['order']),
+    .index('by_order', ['order'])
+    .index('by_created', ['createdAt']),
 
   blogPosts: defineTable({
     title: v.string(),

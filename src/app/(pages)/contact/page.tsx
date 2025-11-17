@@ -8,6 +8,9 @@ export const metadata = {
   description: 'Get in touch with me for projects, collaborations, or just to say hi',
 };
 
+// Force dynamic rendering since child components use Convex hooks
+export const dynamic = 'force-dynamic';
+
 export default function ContactPage() {
   return (
     <div className="py-20 px-4 sm:px-6 lg:px-8">

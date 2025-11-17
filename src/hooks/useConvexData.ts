@@ -10,7 +10,7 @@ export function useConvexData<T>(
   query: FunctionReference<'query', 'public', Record<string, unknown>, T>,
   args?: Record<string, unknown>
 ) {
-  const data = useQuery(query, args);
+  const data = useQuery(query, args ?? {});
 
   return {
     data,
@@ -27,7 +27,7 @@ export function useConvexPagination<T>(
   args?: Record<string, unknown>,
   pageSize: number = 10
 ) {
-  const allData = useQuery(query, args);
+  const allData = useQuery(query, args ?? {});
 
   const [currentPage, setCurrentPage] = React.useState(1);
 
