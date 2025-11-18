@@ -34,8 +34,9 @@ export const getPaginatedPosts = query({
     }
 
     // Apply tag filter
-    if (args.tag && args.tag.trim() !== '') {
-      posts = posts.filter((post) => post.tags.includes(args.tag));
+    const tagFilter = args.tag?.trim();
+    if (tagFilter) {
+      posts = posts.filter((post) => post.tags.includes(tagFilter));
     }
 
     // Manual pagination
