@@ -62,4 +62,20 @@ export default defineSchema({
   })
     .index('by_page', ['page'])
     .index('by_page_section', ['page', 'section']),
+
+  neonProjects: defineTable({
+    title: v.string(),
+    category: v.string(),
+    description: v.string(),
+    colorScheme: v.object({
+      primary: v.string(),
+      secondary: v.string(),
+      accent: v.string(),
+    }),
+    insights: v.optional(v.array(v.string())),
+    order: v.number(),
+    createdAt: v.number(),
+  })
+    .index('by_order', ['order'])
+    .index('by_created', ['createdAt']),
 });
