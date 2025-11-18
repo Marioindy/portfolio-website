@@ -10,9 +10,14 @@
 
 import type * as blog from "../blog.js";
 import type * as contact from "../contact.js";
+import type * as gallery from "../gallery.js";
+import type * as neonProjects from "../neonProjects.js";
+import type * as photography from "../photography.js";
 import type * as projects from "../projects.js";
 import type * as seedBlog from "../seedBlog.js";
+import type * as seedPhotography from "../seedPhotography.js";
 import type * as skills from "../skills.js";
+import type * as testing from "../testing.js";
 
 import type {
   ApiFromModules,
@@ -23,9 +28,14 @@ import type {
 declare const fullApi: ApiFromModules<{
   blog: typeof blog;
   contact: typeof contact;
+  gallery: typeof gallery;
+  neonProjects: typeof neonProjects;
+  photography: typeof photography;
   projects: typeof projects;
   seedBlog: typeof seedBlog;
+  seedPhotography: typeof seedPhotography;
   skills: typeof skills;
+  testing: typeof testing;
 }>;
 
 /**
