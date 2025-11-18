@@ -62,4 +62,20 @@ export default defineSchema({
   })
     .index('by_page', ['page'])
     .index('by_page_section', ['page', 'section']),
+
+  pixelGallery: defineTable({
+    title: v.string(),
+    subtitle: v.string(),
+    color: v.string(),
+    pattern: v.union(
+      v.literal('checkerboard'),
+      v.literal('stripes'),
+      v.literal('dots'),
+      v.literal('grid')
+    ),
+    order: v.number(),
+    active: v.boolean(),
+  })
+    .index('by_order', ['order'])
+    .index('by_active', ['active']),
 });
