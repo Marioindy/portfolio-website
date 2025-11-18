@@ -66,6 +66,9 @@ const config: Config = {
         fadeIn: 'fadeIn 0.5s ease-in',
         slideUp: 'slideUp 0.5s ease-out',
         bounce: 'bounce 1s infinite',
+        neonPulse: 'neonPulse 2s ease-in-out infinite',
+        float: 'float 3s ease-in-out infinite',
+        scanline: 'scanline 4s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -76,6 +79,36 @@ const config: Config = {
           '0%': { transform: 'translateY(10px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
+        neonPulse: {
+          '0%, 100%': {
+            opacity: '0.6',
+            filter: 'brightness(1) drop-shadow(0 0 10px currentColor)',
+          },
+          '50%': {
+            opacity: '1',
+            filter: 'brightness(1.2) drop-shadow(0 0 20px currentColor)',
+          },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
+        scanline: {
+          '0%': { transform: 'translateY(-100%)' },
+          '100%': { transform: 'translateY(100%)' },
+        },
+      },
+      perspective: {
+        '1000': '1000px',
+        '2000': '2000px',
+      },
+      backdropBlur: {
+        xs: '2px',
+      },
+      boxShadow: {
+        neon: '0 0 5px currentColor, 0 0 20px currentColor, 0 0 40px currentColor',
+        'neon-sm': '0 0 5px currentColor, 0 0 10px currentColor',
+        'neon-lg': '0 0 10px currentColor, 0 0 30px currentColor, 0 0 60px currentColor',
       },
     },
   },
