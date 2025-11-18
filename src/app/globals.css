@@ -127,3 +127,96 @@
 *:focus-visible {
   @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
 }
+
+/* Neon Testing Page 3 Specific Styles */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.chromatic-aberration {
+  position: relative;
+}
+
+.chromatic-aberration::before,
+.chromatic-aberration::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: screen;
+}
+
+.chromatic-aberration::before {
+  color: #FF006E;
+  transform: translate(-2px, -2px);
+  animation: glitch1 3s infinite;
+}
+
+.chromatic-aberration::after {
+  color: #00F0FF;
+  transform: translate(2px, 2px);
+  animation: glitch2 3s infinite;
+}
+
+@keyframes glitch1 {
+  0%, 100% {
+    transform: translate(-2px, -2px);
+  }
+  25% {
+    transform: translate(-3px, 2px);
+  }
+  50% {
+    transform: translate(2px, -2px);
+  }
+  75% {
+    transform: translate(3px, 3px);
+  }
+}
+
+@keyframes glitch2 {
+  0%, 100% {
+    transform: translate(2px, 2px);
+  }
+  25% {
+    transform: translate(3px, -2px);
+  }
+  50% {
+    transform: translate(-2px, 2px);
+  }
+  75% {
+    transform: translate(-3px, -3px);
+  }
+}
+
+/* Neon glow utility */
+.neon-glow-pink {
+  box-shadow: 0 0 20px #FF006E, 0 0 40px #FF006E, 0 0 60px #FF006E;
+}
+
+.neon-glow-cyan {
+  box-shadow: 0 0 20px #00F0FF, 0 0 40px #00F0FF, 0 0 60px #00F0FF;
+}
+
+.neon-glow-lime {
+  box-shadow: 0 0 20px #CCFF00, 0 0 40px #CCFF00, 0 0 60px #CCFF00;
+}
+
+/* Gradient text animation */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-shift {
+  background-size: 200% auto;
+  animation: gradientShift 3s ease infinite;
+}
