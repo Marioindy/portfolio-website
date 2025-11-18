@@ -61,11 +61,23 @@ const config: Config = {
           'Arial',
           'sans-serif',
         ],
+        mono: [
+          'ui-monospace',
+          'SFMono-Regular',
+          'Menlo',
+          'Monaco',
+          'Consolas',
+          '"Liberation Mono"',
+          '"Courier New"',
+          'monospace',
+        ],
       },
       animation: {
         fadeIn: 'fadeIn 0.5s ease-in',
         slideUp: 'slideUp 0.5s ease-out',
         bounce: 'bounce 1s infinite',
+        flicker: 'flicker 0.15s infinite',
+        glitch: 'glitch 1s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -75,6 +87,15 @@ const config: Config = {
         slideUp: {
           '0%': { transform: 'translateY(10px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        flicker: {
+          '0%, 100%': { opacity: '0.02' },
+          '50%': { opacity: '0.05' },
+        },
+        glitch: {
+          '0%, 100%': { transform: 'translate(0)' },
+          '33%': { transform: 'translate(-2px, 2px)' },
+          '66%': { transform: 'translate(2px, -2px)' },
         },
       },
     },
