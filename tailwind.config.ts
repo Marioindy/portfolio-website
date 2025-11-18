@@ -43,6 +43,18 @@ const config: Config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        // Warm earth tones for photography aesthetic
+        warm: {
+          ochre: '#D4A574',
+          rust: '#B7472A',
+          'burnt-orange': '#CC5500',
+          terracotta: '#E2725B',
+          sand: '#F4E8D0',
+          clay: '#C19A6B',
+          sienna: '#A0522D',
+          amber: '#FFBF00',
+          cream: '#FFFDD0',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',

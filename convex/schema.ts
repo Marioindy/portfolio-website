@@ -62,4 +62,25 @@ export default defineSchema({
   })
     .index('by_page', ['page'])
     .index('by_page_section', ['page', 'section']),
+
+  photography: defineTable({
+    title: v.string(),
+    subtitle: v.optional(v.string()),
+    imageUrl: v.string(),
+    aspectRatio: v.string(), // e.g., "portrait", "landscape", "square"
+    colorTheme: v.string(), // e.g., "warm", "cool", "neutral"
+    category: v.string(),
+    order: v.number(),
+    featured: v.boolean(),
+    metadata: v.optional(
+      v.object({
+        photographer: v.optional(v.string()),
+        location: v.optional(v.string()),
+        date: v.optional(v.string()),
+      })
+    ),
+  })
+    .index('by_category', ['category'])
+    .index('by_featured', ['featured'])
+    .index('by_order', ['order']),
 });
