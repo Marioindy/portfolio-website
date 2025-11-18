@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Navigation } from '@/components/Navigation';
+import { ClientNavBar } from '@/components/ClientNavBar';
 import { Footer } from '@/components/Footer';
 import { ConvexClientProvider } from '@/components/ConvexClientProvider';
 
@@ -34,7 +34,7 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <ConvexClientProvider>
           <div className="flex flex-col min-h-screen">
-            <Navigation />
+            <ClientNavBar />
             <main className="flex-1">{children}</main>
             <Footer />
           </div>
