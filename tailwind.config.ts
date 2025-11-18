@@ -43,6 +43,17 @@ const config: Config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        // OFF+BRAND Pastel Palette
+        pastel: {
+          peach: '#FFE5D9',
+          lavender: '#E8D5F2',
+          mint: '#D5F2E3',
+          sky: '#D5E8F2',
+          rose: '#FFD5E5',
+          butter: '#FFF4D9',
+          lilac: '#E5DEFF',
+          sage: '#E3F2E1',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',
