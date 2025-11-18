@@ -43,6 +43,17 @@ const config: Config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        // OFF+BRAND Pastel Palette
+        pastel: {
+          peach: '#FFE5D9',
+          lavender: '#E8D5F2',
+          mint: '#D5F2E3',
+          sky: '#D5E8F2',
+          rose: '#FFD5E5',
+          butter: '#FFF4D9',
+          lilac: '#E5DEFF',
+          sage: '#E3F2E1',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -66,6 +77,9 @@ const config: Config = {
         fadeIn: 'fadeIn 0.5s ease-in',
         slideUp: 'slideUp 0.5s ease-out',
         bounce: 'bounce 1s infinite',
+        blob: 'blob 7s infinite',
+        'blob-slow': 'blob 10s infinite',
+        float: 'float 6s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {
@@ -76,6 +90,19 @@ const config: Config = {
           '0%': { transform: 'translateY(10px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
+        blob: {
+          '0%': { transform: 'translate(0px, 0px) scale(1)' },
+          '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+          '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+          '100%': { transform: 'translate(0px, 0px) scale(1)' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
+      },
+      backdropBlur: {
+        xs: '2px',
       },
     },
   },
