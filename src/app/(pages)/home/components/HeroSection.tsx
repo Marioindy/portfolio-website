@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ShaderBackground } from '@/components/ui/ShaderBackground';
+import { LiquidMetalBackground } from '@/components/ui/LiquidMetalBackground';
 import Link from 'next/link';
 
 if (typeof window !== 'undefined') {
@@ -98,8 +98,8 @@ export function HeroSection() {
       ref={heroRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Shader Background */}
-      <ShaderBackground />
+      {/* Liquid Metal Background */}
+      <LiquidMetalBackground color1="#1a1a1a" color2="#ffffff" />
 
       {/* Content */}
       <div className="container mx-auto px-4 z-10">
