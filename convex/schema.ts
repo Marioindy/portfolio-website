@@ -78,4 +78,33 @@ export default defineSchema({
   })
     .index('by_order', ['order'])
     .index('by_created', ['createdAt']),
+
+  pixelGallery: defineTable({
+    title: v.string(),
+    subtitle: v.string(),
+    color: v.string(),
+    pattern: v.union(
+      v.literal('checkerboard'),
+      v.literal('stripes'),
+      v.literal('dots'),
+      v.literal('grid')
+    ),
+    order: v.number(),
+    active: v.boolean(),
+  })
+    .index('by_active', ['active'])
+    .index('by_order', ['order']),
+
+  photography: defineTable({
+    title: v.string(),
+    category: v.string(),
+    imageUrl: v.string(),
+    description: v.optional(v.string()),
+    featured: v.boolean(),
+    order: v.number(),
+    createdAt: v.optional(v.number()),
+  })
+    .index('by_featured', ['featured'])
+    .index('by_category', ['category'])
+    .index('by_order', ['order']),
 });

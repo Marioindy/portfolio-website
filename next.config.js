@@ -8,17 +8,7 @@ const nextConfig = {
     unoptimized: true,
     remotePatterns: [],
   },
-  webpack: (config, { isServer }) => {
-    // Fix for React Three Fiber - ensure single React instance
-    if (!isServer) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        'react': require.resolve('react'),
-        'react-dom': require.resolve('react-dom'),
-      };
-    }
-    return config;
-  },
+  transpilePackages: ['three', '@react-three/fiber', '@react-three/drei'],
   headers: async () => {
     return [
       {
